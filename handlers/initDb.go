@@ -6,6 +6,8 @@ import (
 	"database/sql"
 )
 
+var db *sql.DB
+
 func InitDb() {
 	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s host=%s port=%s sslmode=disable", config.DB_USER, config.DB_PASSWORD, config.DB_NAME, config.DB_HOST, config.PORT)
 	var err error

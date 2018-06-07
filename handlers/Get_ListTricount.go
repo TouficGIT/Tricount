@@ -4,16 +4,9 @@ import (
 	"net/http"
 	"encoding/json"
 	"fmt"
-	"database/sql"
 )
 
-var db *sql.DB
 
-type Tricount struct {
-	tricount_id	string	`json:"id"`
-	tricount_titre	string	`json:"titre"`
-	tricount_desc	string	`json:"description"`
-}
 
 func GetListTricount(w http.ResponseWriter, r *http.Request) {
 	// Execute the query
