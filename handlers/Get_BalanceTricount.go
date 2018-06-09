@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"github.com/gorilla/mux"
 	"encoding/json"
-	"fmt"
 )
 
 func GetBalanceTricount(w http.ResponseWriter, r *http.Request) {
@@ -30,7 +29,7 @@ func GetBalanceTricount(w http.ResponseWriter, r *http.Request) {
 
 	for rows.Next() {
 		err = rows.Scan(vals...)
-		json, _ := json.Marshal(mymap)
-		fmt.Fprintf(w,"%s\n",json)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(mymap)
 	}
 }

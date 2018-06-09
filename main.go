@@ -16,7 +16,9 @@ var db *sql.DB
 func main() {
 	r := mux.NewRouter()
 	handlers.InitDb()
-	r.HandleFunc("/index", handlers.Index)
+	r.HandleFunc("/newTricount/{titre}", handlers.NewTricount)
+	r.HandleFunc("/newUser/{nom}", handlers.NewUser)
+	r.HandleFunc("/newDepense/{nom}/{montant}/{id}", handlers.NewDepense)
 	r.HandleFunc("/getListTricount", handlers.GetListTricount).Methods("GET")
 	r.HandleFunc("/getListUser", handlers.GetListUser).Methods("GET")
 	r.HandleFunc("/getDepenseTricount/{id}", handlers.GetDepenseTricount).Methods("GET")

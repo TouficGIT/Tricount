@@ -3,7 +3,6 @@ package handlers
 import (
 	"net/http"
 	"encoding/json"
-	"fmt"
 	"github.com/gorilla/mux"
 )
 
@@ -31,7 +30,7 @@ func GetDepenseTricount(w http.ResponseWriter, r *http.Request) {
 
 	for rows.Next() {
 		err = rows.Scan(vals...)
-		json, _ := json.Marshal(mymap)
-		fmt.Fprintf(w,"%s\n",json)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(mymap)
 	}
 }

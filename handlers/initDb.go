@@ -24,3 +24,11 @@ func checkErr(err error)  {
 	}
 }
 
+func checkCount(rows *sql.Rows) (count float64) {
+	for rows.Next() {
+		err:= rows.Scan(&count)
+		checkErr(err)
+	}
+	return count
+}
+
