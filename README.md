@@ -3,7 +3,8 @@
 Salut ! Ceci est Webservice réalisé en Golang qui reprend le concept de l'application Tricount dont voici le descriptif :
 
 >**Idéal quand vous organisez des activités de groupes comme des city-trips, des voyages, des restaurants ou quand vous partagez le loyer avec vos colocataires !**
-**Simplifiez-vous la vie, chaque utilisateur ajoute ses propres dépenses et Tricount s'occupe de calculer ce que vous devez et à qui afin d'équilibrer le total du groupe.**
+>
+>**Simplifiez-vous la vie, chaque utilisateur ajoute ses propres dépenses et Tricount s'occupe de calculer ce que vous devez et à qui afin d'équilibrer le total du groupe.**
 
 
 # Fonctionnalités
