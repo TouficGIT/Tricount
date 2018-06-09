@@ -56,19 +56,14 @@ func NewDepense(w http.ResponseWriter, r *http.Request){
 		row4 := db.QueryRow("SELECT user_id FROM Utilisateur WHERE user_nom = $1;", nom).Scan(&user_id)
 		checkErr(row4)
 		var part_balance float64
-		row5 := db.QueryRow("SELECT part_balance FROM Participe WHERE part_user_id = $1;", user_id).Scan(&part_balance)
+		row5 := db.QueryRow("SELECT part_balance FROM Participe WHERE part_user_id = $1 and part_tricount_id = $2;", user_id,tricount).Scan(&part_balance)
 		checkErr(row5)
 
 		part_balance += balance
 
-		rows6, err := db.Query("UPDATE Participe SET part_balance = $1 WHERE part_user_id = $2;", part_balance, user_id)
+		rows6, err := db.Query("UPDATE Participe SET part_balance = $1 WHERE part_user_id = $2 and part_tricount_id = $3;", part_balance, user_id,tricount)
 		checkErr(err)
 		checkCount(rows6)
-		/*
-	rows6, err := db.Query("UPDATE Participe SET part_balance = $1 WHERE part_user_id != $2 and part_tricount_id = $3;",balance,user_id,tricount)
-	checkErr(err)
-	checkCount(rows6)
-	*/
 
 		rows7, err := db.Query(" SELECT part_balance,part_user_id FROM Participe WHERE part_user_id != $1 and part_tricount_id = $2;", user_id, tricount)
 		defer rows7.Close()
