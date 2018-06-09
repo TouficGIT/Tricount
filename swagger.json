@@ -1,0 +1,374 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Ceci est une API REST en GOLANG qui reprend les fonctionnalités de l'application TRICOUNT. Pour en savoir plus sur cette API ou pour télécharger les fichiers, rendez vous à [cette adresse](https://github.com/TouficGIT/Tricount).",
+    "version": "1.0.0",
+    "title": "Tricount",
+    "contact": {
+      "email": "emilien.meffe@gmail.com"
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/newTricount/titre": {
+      "post": {
+        "tags": [
+          "tricount"
+        ],
+        "summary": "Créer un nouveau tricount",
+        "description": "",
+        "operationId": "",
+        "consumes": [
+          "http request"
+        ],
+        "produces": [
+          "text/plain"
+        ],
+        "parameters": [
+          {
+            "name": "{titre}",
+            "in": "path",
+            "description": "Valeur à ajouteur pour définir le titre du nouveau tricount",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ajout du tricount"
+          },
+          "404": {
+            "description": "Erreur 404"
+          }
+        }
+      }
+    },
+    "/getListTricount": {
+      "get": {
+        "tags": [
+          "tricount"
+        ],
+        "summary": "Listes des tricount",
+        "description": "Cette requête retourne tous les tricount existant et leurs informations.",
+        "operationId": "",
+        "consumes": [
+          "http request"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des tricount"
+          },
+          "404": {
+            "description": "Erreur 404"
+          }
+        }
+      }
+    },
+    "/getInfoTricount/id": {
+      "get": {
+        "tags": [
+          "tricount"
+        ],
+        "summary": "Permet d'afficher les informations liés à un tricount",
+        "description": "Cette requête retourne l'ID du tricount, son titre et le nom des utilisateurs qui y sont rattachés.",
+        "operationId": "",
+        "consumes": [
+          "http request"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "{id}",
+            "description": "Valeur à ajouteur pour définir l'id du tricount dont on souhaite obtenir des informations. ",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Infos du tricount"
+          },
+          "404": {
+            "description": "Erreur 404"
+          }
+        }
+      }
+    },
+    "/getBalanceTricount/id": {
+      "get": {
+        "tags": [
+          "tricount"
+        ],
+        "summary": "Permet d'afficher les comptes des utilisateurs (leurs dépenses)",
+        "description": "Cette requête retourne les ''balance'' des utilisateurs sur le tricount sélectionné dans la requête .",
+        "operationId": "",
+        "consumes": [
+          "http request"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "{id}",
+            "description": "Valeur à ajouteur pour définir l'id du tricount dont on souhaite obtenir les ''balances''. ",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Balances des utilisateurs"
+          },
+          "404": {
+            "description": "Erreur 404"
+          }
+        }
+      }
+    },
+    "/newUser/nom": {
+      "post": {
+        "tags": [
+          "utilisateur"
+        ],
+        "summary": "Ajout d'un nouvel utilisateur",
+        "description": "",
+        "operationId": "",
+        "consumes": [
+          "http request"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "{nom}",
+            "description": "Valeur à ajouteur pour le nom du nouvel utilisateur",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ajout de l'utilisateur"
+          },
+          "404": {
+            "description": "Erreur 404"
+          }
+        }
+      }
+    },
+    "/setUserTricount/user/tricount": {
+      "post": {
+        "tags": [
+          "utilisateur"
+        ],
+        "summary": "Ajout d'un utilisateur dans un Tricount",
+        "description": "Cette requête permet de lier un utilisateur à un tricount. Son niveau de dépense est instancié à ''0''.",
+        "operationId": "",
+        "consumes": [
+          "http request"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "{user id}",
+            "description": "Renseigner l'id de l'utilisateur",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "{tricount id}",
+            "description": "Renseignez l'id du tricount",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ajout d'un utilisateur sur un Tricount"
+          },
+          "404": {
+            "description": "Erreur 404"
+          }
+        }
+      }
+    },
+    "/getListUser": {
+      "get": {
+        "tags": [
+          "utilisateur"
+        ],
+        "summary": "Liste des utilisateurs",
+        "description": "Cette requête retourne tous les utilisateurs existant et leurs informations.",
+        "operationId": "",
+        "consumes": [
+          "http request"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des utilisateurs"
+          },
+          "404": {
+            "description": "Erreur 404"
+          }
+        }
+      }
+    },
+    "/refund/nom/tricount/montant": {
+      "put": {
+        "tags": [
+          "utilisateur"
+        ],
+        "summary": "Ajout d'un remboursement",
+        "description": "Permet d'ajouter un remboursement pour l'utilisateur .",
+        "operationId": "",
+        "consumes": [
+          "http request"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "{nom id}",
+            "description": "Renseigner l'id de l'utilisateur",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "path",
+            "name": "{tricount id}",
+            "description": "Renseignez l'id du tricount",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "path",
+            "name": "{montant}",
+            "description": "Renseignez le montant du remboursement",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ajout du remboursement"
+          },
+          "404": {
+            "description": "Erreur 404"
+          }
+        }
+      }
+    },
+    "/newDepense/nom/montant/type/id": {
+      "post": {
+        "tags": [
+          "depense"
+        ],
+        "summary": "Ajout d'une dépense dans un Tricount",
+        "description": "Cette requête permet d'ajouter une dépense dans un Tricount. Le compte des utilisateurs dans ce Tricount sont alors modifiés.",
+        "operationId": "",
+        "consumes": [
+          "http request"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "{nom}",
+            "description": "Renseignez le nom de l'utilisateur",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "{montant}",
+            "description": "Renseignez le montant de la depense",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "path",
+            "name": "{type}",
+            "description": "Renseignez une description du type de dépense (sans espace). Par exemple : AchatCourses, Facture, Bières",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "{id}",
+            "description": "Renseignez l'id du tricount",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ajout d'une dépense pour un utilisateur sur un Tricount"
+          },
+          "404": {
+            "description": "Erreur 404"
+          }
+        }
+      }
+    },
+    "/getDepenseTricount/id": {
+      "get": {
+        "tags": [
+          "depense"
+        ],
+        "summary": "Permet d'afficher les depense des utilisateurs dur un tricount",
+        "description": "Cette requête retourne les ''dépenses'' des utilisateurs sur le tricount sélectionné dans la requête .",
+        "operationId": "",
+        "consumes": [
+          "http request"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "{id}",
+            "description": "Valeur à ajouteur pour définir l'id du tricount dont on souhaite obtenir les ''dépenses''. ",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dépenses des utilisateurs"
+          },
+          "404": {
+            "description": "Erreur 404"
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Récupérer les fichiers de l'API",
+    "url": "https://github.com/TouficGIT/Tricount"
+  }
+}
