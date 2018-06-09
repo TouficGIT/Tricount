@@ -16,7 +16,6 @@ L'application permet pour l'instant de :
 - **Supprimer** les tricount ou les utilisateurs
 - **Ajouter** des remboursements pour régler vos dettes
 
-
-
+#
 Realisé par :
 **Toufic** : [email](emilien.meffe@gmail.com) et **corentin-boscher**
