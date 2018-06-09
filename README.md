@@ -16,15 +16,5 @@ L'application permet pour l'instant de :
 - **Supprimer** les tricount ou les utilisateurs
 - **Ajouter** des remboursements pour régler vos dettes
 
-## MCD de l'application
-
-```mermaid
-graph LR
-A[Tricount] --> B(Participe)
-A[Tricount] --> C(Comporte)
-B --> D[Utilisateur]
-C --> E[Depense]
-```
 Realisé par :
-**Toufic** : [email](emilien.meffe@gmail.com)
-**corentin-boscher**
+**Toufic** : [email](emilien.meffe@gmail.com) et **corentin-boscher**
