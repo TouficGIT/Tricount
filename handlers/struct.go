@@ -21,7 +21,7 @@ type Tricount struct {
 
 type Participe struct {
 	part_tricount_id int
-	part_user_id string
+	part_user_id int
 	part_balance string
 }
 

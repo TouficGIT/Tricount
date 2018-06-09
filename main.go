@@ -18,14 +18,15 @@ func main() {
 	handlers.InitDb()
 	r.HandleFunc("/newTricount/{titre}", handlers.NewTricount)
 	r.HandleFunc("/newUser/{nom}", handlers.NewUser)
-	r.HandleFunc("/newDepense/{nom}/{montant}/{id}", handlers.NewDepense)
+	r.HandleFunc("/setUserTricount/{user}/{tricount}", handlers.UserTricount)
+	r.HandleFunc("/newDepense/{nom}/{montant}/{type}/{id}", handlers.NewDepense)
 	r.HandleFunc("/getListTricount", handlers.GetListTricount).Methods("GET")
 	r.HandleFunc("/getListUser", handlers.GetListUser).Methods("GET")
 	r.HandleFunc("/getDepenseTricount/{id}", handlers.GetDepenseTricount).Methods("GET")
 	r.HandleFunc("/getInfoTricount/{id}", handlers.GetInfoTricount).Methods("GET")
 	r.HandleFunc("/getBalanceTricount/{id}", handlers.GetBalanceTricount).Methods("GET")
 	r.HandleFunc("/close", Close)
-	log.Fatal(http.ListenAndServe("localhost:8005", r))
+	log.Fatal(http.ListenAndServe("localhost:80", r))
 	defer db.Close()
 }
 
