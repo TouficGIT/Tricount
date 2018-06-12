@@ -12,22 +12,27 @@ import (
 
 var db *sql.DB
 
-
 func main() {
 	r := mux.NewRouter()
 	handlers.InitDb()
 
+	r.HandleFunc("/joke", handlers.SendJoke)
 	r.HandleFunc("/newTricount/{titre}", handlers.NewTricount)
 	r.HandleFunc("/newUser/{nom}", handlers.NewUser)
 	r.HandleFunc("/setUserTricount/{user}/{tricount}", handlers.UserTricount)
-	r.HandleFunc("/newDepense/{nom}/{montant}/{type}/{id}", handlers.NewDepense)
+	r.HandleFunc("/newDepense/{nom}/{montant}/{type}/{titre}", handlers.NewDepense)
 	r.HandleFunc("/refund/{nom}/{tricount}/{montant}",handlers.Refund)
+	r.HandleFunc("/delUser/{nom}",handlers.DelUser)
+	r.HandleFunc("/delTricount/{nom}",handlers.DelTricount)
 	r.HandleFunc("/getListTricount", handlers.GetListTricount).Methods("GET")
 	r.HandleFunc("/getListUser", handlers.GetListUser).Methods("GET")
-	r.HandleFunc("/getDepenseTricount/{id}", handlers.GetDepenseTricount).Methods("GET")
-	r.HandleFunc("/getInfoTricount/{id}", handlers.GetInfoTricount).Methods("GET")
-	r.HandleFunc("/getBalanceTricount/{id}", handlers.GetBalanceTricount).Methods("GET")
+	r.HandleFunc("/getDepenseTricount/{titre}", handlers.GetDepenseTricount).Methods("GET")
+	r.HandleFunc("/getInfoTricount/{titre}", handlers.GetInfoTricount).Methods("GET")
+	r.HandleFunc("/getBalanceTricount/{titre}", handlers.GetBalanceTricount).Methods("GET")
+
 	r.HandleFunc("/close", Close)
+	http.Handle("/", r)
+	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./dist/")))
 	log.Fatal(http.ListenAndServe("localhost:80", r))
 	defer db.Close()
 }

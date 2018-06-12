@@ -9,8 +9,8 @@ import (
 func GetInfoTricount(w http.ResponseWriter, r *http.Request) {
 	// Execute the query
 	params := mux.Vars(r)
-	id := params["id"]
-	rows, err := db.Query("SELECT tricount_id, tricount_titre, user_nom FROM Tricount INNER JOIN Participe ON Tricount.tricount_id = Participe.part_tricount_id INNER JOIN Utilisateur ON Utilisateur.user_id = Participe.part_user_id AND tricount_id = $1 ;",id)
+	titre := params["titre"]
+	rows, err := db.Query("SELECT tricount_id, tricount_titre, user_nom FROM Tricount INNER JOIN Participe ON Tricount.tricount_id = Participe.part_tricount_id INNER JOIN Utilisateur ON Utilisateur.user_id = Participe.part_user_id AND tricount_titre = $1 ;",titre)
 	checkErr(err)
 	defer rows.Close()
 	cols, _ := rows.Columns()

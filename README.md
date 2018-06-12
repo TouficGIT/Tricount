@@ -12,11 +12,11 @@ Salut ! Ceci est Webservice réalisé en Golang qui reprend le concept de l'appl
 L'application permet pour l'instant de :
 - **Créer** votre tricount et entrez les noms des participants
 - **Ajoutez** des dépenses et voyez le montant total
+- **Ajouter** des remboursements pour régler vos dettes
 
 **A venir :**
 - **Supprimer** les tricount ou les utilisateurs
-- **Ajouter** des remboursements pour régler vos dettes
-
+- **Modifier** les caractéristiques des utilisateurs et de tricount
 #
 Realisé par :
 **Toufic** : [email](emilien.meffe@gmail.com) et **corentin-boscher**

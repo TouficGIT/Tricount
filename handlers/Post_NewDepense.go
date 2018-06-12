@@ -15,14 +15,15 @@ func NewDepense(w http.ResponseWriter, r *http.Request){
 	nom := params["nom"]
 	montant := params["montant"]
 	dep_type := params["type"]
-	tricount := params["id"]
+	tricount := params["titre"]
+	var tricount_id int
 	var depense_id int
 	var user_id int
 	var depense_montant float64
 	depense_montant, err := strconv.ParseFloat(params["montant"],64)
 	checkErr(err)
 
-	rows, err := db.Query("SELECT COUNT(tricount_id) AS count FROM Tricount WHERE tricount_id = $1;", tricount)
+	rows, err := db.Query("SELECT COUNT(tricount_id) AS count FROM Tricount WHERE tricount_titre = $1;", tricount)
 	checkErr(err)
 	count := checkCount(rows)
 
@@ -31,7 +32,10 @@ func NewDepense(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	rows2, err := db.Query("SELECT COUNT(user_nom) AS count FROM Utilisateur u INNER JOIN Participe p ON u.user_id = p.part_user_id INNER JOIN Tricount t ON p.part_tricount_id = t.tricount_id WHERE t.tricount_id = $1 AND u.user_nom = $2;", tricount,nom)
+	query := db.QueryRow("SELECT tricount_id FROM Tricount WHERE tricount_titre = $1;", tricount).Scan(&tricount_id)
+	checkErr(query)
+
+	rows2, err := db.Query("SELECT COUNT(user_nom) AS count FROM Utilisateur u INNER JOIN Participe p ON u.user_id = p.part_user_id INNER JOIN Tricount t ON p.part_tricount_id = t.tricount_id WHERE t.tricount_id = $1 AND u.user_nom = $2;", tricount_id,nom)
 	checkErr(err)
 	count2 := checkCount(rows2)
 
@@ -42,10 +46,10 @@ func NewDepense(w http.ResponseWriter, r *http.Request){
 
 	insert := db.QueryRow("INSERT INTO Depense (depense_type, depense_user, depense_date, depense_montant) VALUES ($1,$2,$3,$4) RETURNING depense_id;",dep_type,nom,date,montant).Scan(&depense_id)
 	checkErr(insert)
-	insert2 := db.QueryRow("INSERT INTO Comporte (comp_tricount_id, comp_depense_id) VALUES ($1,$2) RETURNING comp_tricount_id;",tricount,depense_id).Scan(&tricount)
+	insert2 := db.QueryRow("INSERT INTO Comporte (comp_tricount_id, comp_depense_id) VALUES ($1,$2) RETURNING comp_tricount_id;",tricount_id,depense_id).Scan(&tricount)
 	checkErr(insert2)
 
-	rows3, err := db.Query("SELECT COUNT(part_user_id) FROM Participe WHERE part_tricount_id = $1;", tricount)
+	rows3, err := db.Query("SELECT COUNT(part_user_id) FROM Participe WHERE part_tricount_id = $1;", tricount_id)
 	checkErr(err)
 	var nbUser float64
 	nbUser = checkCount(rows3)
@@ -56,16 +60,16 @@ func NewDepense(w http.ResponseWriter, r *http.Request){
 		row4 := db.QueryRow("SELECT user_id FROM Utilisateur WHERE user_nom = $1;", nom).Scan(&user_id)
 		checkErr(row4)
 		var part_balance float64
-		row5 := db.QueryRow("SELECT part_balance FROM Participe WHERE part_user_id = $1 and part_tricount_id = $2;", user_id,tricount).Scan(&part_balance)
+		row5 := db.QueryRow("SELECT part_balance FROM Participe WHERE part_user_id = $1 and part_tricount_id = $2;", user_id,tricount_id).Scan(&part_balance)
 		checkErr(row5)
 
 		part_balance += balance
 
-		rows6, err := db.Query("UPDATE Participe SET part_balance = $1 WHERE part_user_id = $2 and part_tricount_id = $3;", part_balance, user_id,tricount)
+		rows6, err := db.Query("UPDATE Participe SET part_balance = $1 WHERE part_user_id = $2 and part_tricount_id = $3;", part_balance, user_id,tricount_id)
 		checkErr(err)
 		checkCount(rows6)
 
-		rows7, err := db.Query(" SELECT part_balance,part_user_id FROM Participe WHERE part_user_id != $1 and part_tricount_id = $2;", user_id, tricount)
+		rows7, err := db.Query(" SELECT part_balance,part_user_id FROM Participe WHERE part_user_id != $1 and part_tricount_id = $2;", user_id, tricount_id)
 		defer rows7.Close()
 		for rows7.Next() {
 			var part_user_id int

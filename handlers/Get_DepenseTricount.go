@@ -10,8 +10,8 @@ import (
 func GetDepenseTricount(w http.ResponseWriter, r *http.Request) {
 	// Execute the query
 	params := mux.Vars(r)
-	id := params["id"]
-	rows, err := db.Query("SELECT depense_montant FROM Depense INNER JOIN Comporte ON Depense.depense_id = Comporte.comp_depense_id INNER JOIN Tricount ON Tricount.tricount_id = Comporte.comp_tricount_id AND tricount_id = $1",id)
+	titre := params["titre"]
+	rows, err := db.Query("SELECT depense_montant FROM Depense INNER JOIN Comporte ON Depense.depense_id = Comporte.comp_depense_id INNER JOIN Tricount ON Tricount.tricount_id = Comporte.comp_tricount_id AND tricount_titre = $1",titre)
 	checkErr(err)
 	defer rows.Close()
 	cols, _ := rows.Columns()
