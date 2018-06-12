@@ -16,7 +16,7 @@ L'application permet pour l'instant de :
 - **Supprimer** les tricount ou les utilisateurs
 
 **A venir :**
-**Supprimer** les associations Tricount/Utilisateur
+- **Supprimer** les associations Tricount/Utilisateur
 - **Modifier** les caractéristiques des utilisateurs et de tricount
 #
 Realisé par :
