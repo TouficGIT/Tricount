@@ -13,9 +13,10 @@ L'application permet pour l'instant de :
 - **Créer** votre tricount et entrez les noms des participants
 - **Ajoutez** des dépenses et voyez le montant total
 - **Ajouter** des remboursements pour régler vos dettes
+- **Supprimer** les tricount ou les utilisateurs
 
 **A venir :**
-- **Supprimer** les tricount ou les utilisateurs
+**Supprimer** les associations Tricount/Utilisateur
 - **Modifier** les caractéristiques des utilisateurs et de tricount
 #
 Realisé par :
