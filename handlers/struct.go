@@ -3,7 +3,7 @@ package handlers
 
 type Utilisateur struct {
 	user_id	int
-	user_nom	string
+	user_nom string
 }
 
 type Depense struct {
