@@ -33,7 +33,7 @@ func Refund (w http.ResponseWriter, r *http.Request) {
 	checkErr(query2)
 
 	var part_balance float64
-	row5 := db.QueryRow("SELECT part_balance FROM Participe WHERE part_user_id = $1 and part_tricount_titre = $2;", user_id,tricount_id).Scan(&part_balance)
+	row5 := db.QueryRow("SELECT part_balance FROM Participe WHERE part_user_id = $1 and part_tricount_id = $2;", user_id,tricount_id).Scan(&part_balance)
 	checkErr(row5)
 
 	part_balance += montant
